@@ -1,0 +1,29 @@
+﻿@section Scripts
+{
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/monitoringDeploy.js"></script>
+
+}
+
+<div style="background-color:aqua; float:left">
+    <form id="uploadWorkflow" method="post" enctype="multipart/form-data" asp-controller="NodeLang" asp-action="UploadWorkFlow">
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>Upload one or more files using this form:</p>
+                <input type="file" name="file" multiple>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Deploy">
+            </div>
+        </div>
+    </form>
+
+    <button style="float:left;" onclick="readXml()">show</button>
+    <button style="float:left;" onclick="change()">change</button>
+</div>
+<div style="float:left">
+    <ul id="workFlows"></ul>
+</div>

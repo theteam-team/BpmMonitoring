@@ -1,0 +1,25 @@
+﻿@{
+    string id = ViewBag.Id;
+}
+
+@section Scripts
+{
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/monitoringParser.js"></script>
+    <script src="~/js/MonitoringExecution.js"></script>
+
+}
+<workflow id=@id>
+    <div style="float:left">
+        <ul id="runningInstances"></ul>
+    </div>
+    <div style="float:left">
+        <svg id="WorkFlow" width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" viewBox="0 0 20 20" refX="11" refY="10" markerUnits="strokeWidth" markerWidth="10" markerHeight="10" orient="auto">
+                    <path d="M 1 5 L 11 10 L 1 15 Z" style="fill: black; stroke-width: 1px; stroke-linecap: round; stroke-dasharray: 10000, 1; stroke: black;"></path>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+</workflow>
