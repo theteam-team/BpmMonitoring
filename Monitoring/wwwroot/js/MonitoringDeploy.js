@@ -5,7 +5,7 @@ connection.start().then(function ()
 {
     connection.invoke("AddToGroup", "Deployment");
     //connection.invoke("GetCurrentDeployed")
-    $.getJSON("http://197.135.39.172/engine/api/workflows",
+    $.getJSON("http://localhost:8090/engine/api/workflows",
         function (workflows) {
             console.log(workflows);
             for (var i = 0; i < workflows.length; i++) {
