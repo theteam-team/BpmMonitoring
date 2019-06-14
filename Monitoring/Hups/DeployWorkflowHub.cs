@@ -23,7 +23,7 @@ namespace Monitoring.Hubs
         }
         
         /// Deployment
-        public async Task GetCurrentDeployed()
+        /*public async Task GetCurrentDeployed()
         {
 
            
@@ -36,12 +36,14 @@ namespace Monitoring.Hubs
                 await Clients.Caller.SendAsync("InitializeDeployList", nodeLangWorkflows);
                
             }
-        }
+        }*/
         public async Task updateDeployList(string Id, string name, string workflowStr)
         {
             await Clients.Others.SendAsync("updateDeployList", Id, name, workflowStr);
             
         }
+
+
 
         /// Insatances
         public async Task GetRunningWorkFlowInstances(string WorkflowId)

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,7 +43,7 @@ namespace Monitoring
             app.UseNodeModules(env);
             mcontext.Database.EnsureCreated();
             app.UseStaticFiles();
-            app.UseWebSockets();
+            //app.UseWebSockets();
             app.UseSignalR(routes =>
             {
                 routes.MapHub<DeployWorkflowHub>("/DeployWorkflowHub");              

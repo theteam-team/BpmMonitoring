@@ -3,15 +3,22 @@
 let connection = new signalR.HubConnectionBuilder().withUrl("/DeployWorkflowHub").build();
 connection.start().then(function ()
 {
-    connection.invoke("AddToGroup", "Deployment")
-    connection.invoke("GetCurrentDeployed")
+    connection.invoke("AddToGroup", "Deployment");
+    //connection.invoke("GetCurrentDeployed")
+    $.getJSON("http://197.135.39.172/engine/api/workflows",
+        function (workflows) {
+            console.log(workflows);
+            for (var i = 0; i < workflows.length; i++) {
+                CreateWorkflowRecord(workflows[i].design, workflows[i].design, workflows[i].runningInstances)
+            }
+        });
 });
 
 connection.on("updateDeployList", function (id, name, workFlowStr) {
     CreateWorkflowRecord(id, name, 0)
        
 });
-connection.on("InitializeDeployList", function (deployedWorkFlows) {
+/*connection.on("InitializeDeployList", function (deployedWorkFlows) {
     console.log(deployedWorkFlows);
     for (var i = 0; i < deployedWorkFlows.length; ++i)
     {
@@ -19,7 +26,7 @@ connection.on("InitializeDeployList", function (deployedWorkFlows) {
         CreateWorkflowRecord(workflow.id, workflow.name, workflow.runingInstances)     
     }
    
-});
+});*/
 
 connection.on("updateNumberOfInstances", function (workflowId, runningInstances)
 {

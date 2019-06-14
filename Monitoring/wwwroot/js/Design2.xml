@@ -1,143 +1,156 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <bpm>
-    <nodes name="design2" id ="3053815d-ff83-4096-b0e9-fb528f318d00">
-        <start nId="aa2c092e-c67e-473a-825c-14e56ee4adbd" type="START">
-            <NId>aa2c092e-c67e-473a-825c-14e56ee4adbd</NId>
+    <nodes name="design">
+        <start nId="eb9122d4-6665-4af7-bf3b-d363866fe722" type="START">
+            <NId>eb9122d4-6665-4af7-bf3b-d363866fe722</NId>
             <type>START</type>
-            <nextNode>1fca3740-7a53-48af-9286-b90b68b0ff58</nextNode>
+            <nextNode>c535cf69-c914-47f5-a1f7-c4e6c042cdf9</nextNode>
         </start>
-        <serviceTask nId="f65667fa-9cb5-4ef9-80fd-1db526bf03dc" type="TASK">
-            <NId>f65667fa-9cb5-4ef9-80fd-1db526bf03dc</NId>
+        <serviceTask nId="c535cf69-c914-47f5-a1f7-c4e6c042cdf9" type="TASK">
+            <NId>c535cf69-c914-47f5-a1f7-c4e6c042cdf9</NId>
             <type>TASK</type>
-            <nextNode>08ec8b9d-fc04-4dbf-9e90-5e5d9c2987b1</nextNode>
-            <input>b</input>
+            <previousNode>eb9122d4-6665-4af7-bf3b-d363866fe722</previousNode>
+            <nextNode>7f562e68-08d1-48bc-815c-74268b3ccc61</nextNode>
             <ServiceType>rest</ServiceType>
-            <restLink>http link</restLink>
             <soapFunc>getHello</soapFunc>
         </serviceTask>
-        <serviceTask nId="09028f4b-9e3b-4535-8e4f-8a222d37cc6a" type="TASK">
-            <NId>09028f4b-9e3b-4535-8e4f-8a222d37cc6a</NId>
+        <serviceTask nId="5058ac82-97a1-42a5-9156-5f997e09848c" type="TASK">
+            <NId>5058ac82-97a1-42a5-9156-5f997e09848c</NId>
             <type>TASK</type>
-            <previousNode>5c7c4013-dc5d-4ef0-b167-d657f6e2aeea</previousNode>
-            <nextNode>9f0e5850-b69b-4e01-a3d9-ff7ca4944ff0</nextNode>
-            <input>c</input>
+            <nextNode>3232cdfe-3e72-474b-ab3f-aa1263bf6889</nextNode>
             <ServiceType>rest</ServiceType>
-            <restLink>http link</restLink>
             <soapFunc>getHello</soapFunc>
         </serviceTask>
-        <serviceTask nId="fe84bce5-d113-4561-b565-188a3cb70b0d" type="TASK">
-            <NId>fe84bce5-d113-4561-b565-188a3cb70b0d</NId>
+        <serviceTask nId="e0b550dd-62e1-4305-a593-c88c2a8d785f" type="TASK">
+            <NId>e0b550dd-62e1-4305-a593-c88c2a8d785f</NId>
             <type>TASK</type>
-            <previousNode>1fca3740-7a53-48af-9286-b90b68b0ff58</previousNode>
-            <nextNode>573fef8c-9936-4906-ab00-5d2f22acbbf1</nextNode>
+            <previousNode>7f562e68-08d1-48bc-815c-74268b3ccc61</previousNode>
+            <nextNode>08bf7aa3-6a9a-4161-921e-57c0cf6e7318</nextNode>
             <input>a</input>
-            <output>outVar</output>
+            <output>v</output>
             <ServiceType>rest</ServiceType>
-            <restLink>http link</restLink>
+            <restLink>restLink</restLink>
             <soapFunc>getHello</soapFunc>
         </serviceTask>
-        <parallel nId="5c7c4013-dc5d-4ef0-b167-d657f6e2aeea" type="parallel">
-            <NId>5c7c4013-dc5d-4ef0-b167-d657f6e2aeea</NId>
-            <type>parallel</type>
-            <nextNode>f65667fa-9cb5-4ef9-80fd-1db526bf03dc</nextNode>
-            <nextNode>09028f4b-9e3b-4535-8e4f-8a222d37cc6a</nextNode>
+        <serviceTask nId="783ccf12-7f19-44e8-be14-8d972ec58eba" type="TASK">
+            <NId>783ccf12-7f19-44e8-be14-8d972ec58eba</NId>
+            <type>TASK</type>
+            <ServiceType>rest</ServiceType>
+            <soapFunc>getHello</soapFunc>
+        </serviceTask>
+        <serviceTask nId="7a8e5d0a-0b82-4bf4-a853-d9e8ccfbfed0" type="TASK">
+            <NId>7a8e5d0a-0b82-4bf4-a853-d9e8ccfbfed0</NId>
+            <type>TASK</type>
+            <previousNode>08bf7aa3-6a9a-4161-921e-57c0cf6e7318</previousNode>
+            <nextNode>abc822c2-c5c1-4ed8-9b84-1f433b167b9f</nextNode>
+            <ServiceType>rest</ServiceType>
+            <soapFunc>getHello</soapFunc>
+        </serviceTask>
+        <parallel nId="08bf7aa3-6a9a-4161-921e-57c0cf6e7318" type="PARALLEL">
+            <NId>08bf7aa3-6a9a-4161-921e-57c0cf6e7318</NId>
+            <type>PARALLEL</type>
+            <previousNode>e0b550dd-62e1-4305-a593-c88c2a8d785f</previousNode>
+            <nextNode>783ccf12-7f19-44e8-be14-8d972ec58eba</nextNode>
+            <nextNode1>7a8e5d0a-0b82-4bf4-a853-d9e8ccfbfed0</nextNode1>
         </parallel>
-        <condition nId="1fca3740-7a53-48af-9286-b90b68b0ff58" type="condition">
-            <NId>1fca3740-7a53-48af-9286-b90b68b0ff58</NId>
-            <type>condition</type>
-            <previousNode>aa2c092e-c67e-473a-825c-14e56ee4adbd</previousNode>
-            <nextNode>5c7c4013-dc5d-4ef0-b167-d657f6e2aeea</nextNode>
-            <nextNode>fe84bce5-d113-4561-b565-188a3cb70b0d</nextNode>
-            <expression>conditionVar</expression>
+        <parallel nId="abc822c2-c5c1-4ed8-9b84-1f433b167b9f" type="PARALLEL">
+            <NId>abc822c2-c5c1-4ed8-9b84-1f433b167b9f</NId>
+            <type>PARALLEL</type>
+            <previousNode>783ccf12-7f19-44e8-be14-8d972ec58eba</previousNode>
+            <previousNode1>7a8e5d0a-0b82-4bf4-a853-d9e8ccfbfed0</previousNode1>
+            <nextNode>d823d8ef-e7c3-4c74-9313-94df872a5e3c</nextNode>
+        </parallel>
+        <condition nId="7f562e68-08d1-48bc-815c-74268b3ccc61" type="CONDITION">
+            <NId>7f562e68-08d1-48bc-815c-74268b3ccc61</NId>
+            <type>CONDITION</type>
+            <previousNode>c535cf69-c914-47f5-a1f7-c4e6c042cdf9</previousNode>
+            <nextNode>5058ac82-97a1-42a5-9156-5f997e09848c</nextNode>
+            <nextNode1>e0b550dd-62e1-4305-a593-c88c2a8d785f</nextNode1>
+            <expression>condition</expression>
         </condition>
-        <end nId="573fef8c-9936-4906-ab00-5d2f22acbbf1" type="END">
-            <NId>573fef8c-9936-4906-ab00-5d2f22acbbf1</NId>
+        <end nId="3232cdfe-3e72-474b-ab3f-aa1263bf6889" type="END">
+            <NId>3232cdfe-3e72-474b-ab3f-aa1263bf6889</NId>
             <type>END</type>
-            <previousNode>fe84bce5-d113-4561-b565-188a3cb70b0d</previousNode>
+            <previousNode>5058ac82-97a1-42a5-9156-5f997e09848c</previousNode>
         </end>
-        <end nId="08ec8b9d-fc04-4dbf-9e90-5e5d9c2987b1" type="END">
-          <NId>08ec8b9d-fc04-4dbf-9e90-5e5d9c2987b1</NId>
-          <type>END</type>
-          <previousNode>d2dc5a08-4b87-4c04-80fd-2a78039f6768</previousNode>
-        </end>
-        <end nId="9f0e5850-b69b-4e01-a3d9-ff7ca4944ff0" type="END">
-          <NId>9f0e5850-b69b-4e01-a3d9-ff7ca4944ff0</NId>
-          <type>END</type>
-          <previousNode>22df26e4-df2e-4d27-a34a-f2b5865d57b5</previousNode>
+        <end nId="d823d8ef-e7c3-4c74-9313-94df872a5e3c" type="END">
+            <NId>d823d8ef-e7c3-4c74-9313-94df872a5e3c</NId>
+            <type>END</type>
+            <previousNode>abc822c2-c5c1-4ed8-9b84-1f433b167b9f</previousNode>
         </end>
     </nodes>
     <variables>
-        <variable nId="9873cb51-f0b8-4577-ac5d-27d264b42930">
-            <name>conditionVar</name>
-            <type>bool</type>
-            <value>true</value>
-        </variable>
-        <variable nId="3674da51-a727-46a7-ba02-c7bc20b1465d">
-            <name>a</name>
-            <type>int</type>
-            <value>5</value>
-        </variable>
-        <variable nId="ee2ad3e4-309d-43f3-aba4-3da0e0898832">
-            <name>b</name>
-            <type>int</type>
-            <value>30</value>
-        </variable>
-        <variable nId="0ceb97fc-39a6-477f-ac82-5f507634ad71">
-            <name>c</name>
-            <type>int</type>
-            <value>100</value>
-        </variable>
-        <variable nId="d63d23e1-8f20-4294-9769-e84f6746c6c6">
-            <name>outVar</name>
-            <type>int</type>
+        <variable nId="317034b0-1e2d-48de-8516-fcc54489704b">
+            <name>sVar</name>
+            <type>string</type>
             <value></value>
         </variable>
+        <variable nId="989e67d1-c113-4871-82c7-93f56d3b9696">
+            <name>out</name>
+            <type>string</type>
+            <value></value>
+        </variable>
+        <variable nId="c42dac5a-9c86-4db1-96b7-684bb5fbfb62">
+            <name>var</name>
+            <type>string</type>
+            <value>varValue</value>
+        </variable>
     </variables>
-  <positions>
-    <Node nId="aa2c092e-c67e-473a-825c-14e56ee4adbd" >
-      <id>aa2c092e-c67e-473a-825c-14e56ee4adbd</id>
-      <x>0</x>
-      <y>0</y>
-    </Node>
-    <Node nId="f65667fa-9cb5-4ef9-80fd-1db526bf03dc" >
-      <id>f65667fa-9cb5-4ef9-80fd-1db526bf03dc</id>
-      <x>700</x>
-      <y>0</y>
-    </Node>
-    <Node nId="09028f4b-9e3b-4535-8e4f-8a222d37cc6a" >
-      <id>09028f4b-9e3b-4535-8e4f-8a222d37cc6a</id>
-      <x>700</x>
-      <y>200</y>
-    </Node>
-    <Node nId="fe84bce5-d113-4561-b565-188a3cb70b0d" >
-      <id>fe84bce5-d113-4561-b565-188a3cb70b0d</id>
-      <x>500</x>
-      <y>300</y>
-    </Node>
-    <Node nId="5c7c4013-dc5d-4ef0-b167-d657f6e2aeea" >
-      <id>5c7c4013-dc5d-4ef0-b167-d657f6e2aeea</id>
-      <x>500</x>
-      <y>100</y>
-    </Node>
-    <Node nId="1fca3740-7a53-48af-9286-b90b68b0ff58" >
-      <id>1fca3740-7a53-48af-9286-b90b68b0ff58</id>
-      <x>300</x>
-      <y>200</y>
-    </Node> 
-    <Node nId="573fef8c-9936-4906-ab00-5d2f22acbbf1" >
-      <id>573fef8c-9936-4906-ab00-5d2f22acbbf1</id>
-      <x>900</x>
-      <y>400</y>
-    </Node>
-    <Node nId="08ec8b9d-fc04-4dbf-9e90-5e5d9c2987b1" >
-      <id>08ec8b9d-fc04-4dbf-9e90-5e5d9c2987b1</id>
-      <x>900</x>
-      <y>0</y>
-    </Node>
-    <Node nId="9f0e5850-b69b-4e01-a3d9-ff7ca4944ff0" >
-      <id>9f0e5850-b69b-4e01-a3d9-ff7ca4944ff0</id>
-      <x>900</x>
-      <y>200</y>
-    </Node>
-  </positions>
+    <positions>
+        <position>
+            <nodeId>c535cf69-c914-47f5-a1f7-c4e6c042cdf9</nodeId>
+            <x>283.0</x>
+            <y>215.0</y>
+        </position>
+        <position>
+            <nodeId>7f562e68-08d1-48bc-815c-74268b3ccc61</nodeId>
+            <x>396.0</x>
+            <y>211.0</y>
+        </position>
+        <position>
+            <nodeId>5058ac82-97a1-42a5-9156-5f997e09848c</nodeId>
+            <x>566.0</x>
+            <y>91.0</y>
+        </position>
+        <position>
+            <nodeId>e0b550dd-62e1-4305-a593-c88c2a8d785f</nodeId>
+            <x>543.0</x>
+            <y>289.0</y>
+        </position>
+        <position>
+            <nodeId>3232cdfe-3e72-474b-ab3f-aa1263bf6889</nodeId>
+            <x>826.0</x>
+            <y>76.0</y>
+        </position>
+        <position>
+            <nodeId>d823d8ef-e7c3-4c74-9313-94df872a5e3c</nodeId>
+            <x>613.0</x>
+            <y>397.0</y>
+        </position>
+        <position>
+            <nodeId>eb9122d4-6665-4af7-bf3b-d363866fe722</nodeId>
+            <x>166.0</x>
+            <y>211.0</y>
+        </position>
+        <position>
+            <nodeId>08bf7aa3-6a9a-4161-921e-57c0cf6e7318</nodeId>
+            <x>685.0</x>
+            <y>294.0</y>
+        </position>
+        <position>
+            <nodeId>783ccf12-7f19-44e8-be14-8d972ec58eba</nodeId>
+            <x>783.0</x>
+            <y>199.0</y>
+        </position>
+        <position>
+            <nodeId>7a8e5d0a-0b82-4bf4-a853-d9e8ccfbfed0</nodeId>
+            <x>803.0</x>
+            <y>319.0</y>
+        </position>
+        <position>
+            <nodeId>abc822c2-c5c1-4ed8-9b84-1f433b167b9f</nodeId>
+            <x>859.0</x>
+            <y>260.0</y>
+        </position>
+    </positions>
 </bpm>
