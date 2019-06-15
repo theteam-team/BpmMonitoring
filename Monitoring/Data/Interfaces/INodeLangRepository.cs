@@ -15,6 +15,8 @@ namespace Monitoring.Interfaces
         Task AddRunningInstance(string WorkflowId, string InstanceId, string currentNode);
         Task<string> GetCurrentNode(string InstanceId);
         Task UpdateCurrentNode(string InstanceId, string NodeId);*/
-        
+        Task<List<NodeLangWorkflow>> GetDeployedWorkflowsAsync();
+        Task<string> GetWorkflowXml(string Id);
+        Task<List<string>> GetRunningInstances(string workflowName);
     }
 }

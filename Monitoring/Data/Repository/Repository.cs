@@ -52,7 +52,7 @@ namespace Monitoring.Repository
 
 
       
-        public async Task<T> GetById(object id)
+        public virtual async Task<T> GetById(object id)
         {
             //await Task.Run(() => InitiateConnection());
             return _datadbContext.Find<T>(id);

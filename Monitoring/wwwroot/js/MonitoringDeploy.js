@@ -4,29 +4,30 @@ let connection = new signalR.HubConnectionBuilder().withUrl("/DeployWorkflowHub"
 connection.start().then(function ()
 {
     connection.invoke("AddToGroup", "Deployment");
-    //connection.invoke("GetCurrentDeployed")
-    $.getJSON("http://localhost:8090/engine/api/workflows",
+    $.getJSON("/GetDeployedWorkFlows",
         function (workflows) {
             console.log(workflows);
             for (var i = 0; i < workflows.length; i++) {
-                CreateWorkflowRecord(workflows[i].design, workflows[i].design, workflows[i].runningInstances)
+                CreateWorkflowRecord(workflows[i].name, workflows[i].runingInstances)
             }
         });
 });
 
 connection.on("updateDeployList", function (id, name, workFlowStr) {
-    CreateWorkflowRecord(id, name, 0)
+    CreateWorkflowRecord(name, 0)
        
 });
-/*connection.on("InitializeDeployList", function (deployedWorkFlows) {
-    console.log(deployedWorkFlows);
-    for (var i = 0; i < deployedWorkFlows.length; ++i)
-    {
-        var workflow = deployedWorkFlows[i];
-        CreateWorkflowRecord(workflow.id, workflow.name, workflow.runingInstances)     
-    }
+connection.on("InitializeDeployList", function () {
+    
+    $.getJSON("/GetDeployedWorkFlows",
+          function (workflows) {
+            console.log(workflows);
+            for (var i = 0; i < workflows.length; i++) {
+                CreateWorkflowRecord(workflows[i].name, workflows[i].runingInstances)
+            }
+        });
    
-});*/
+});
 
 connection.on("updateNumberOfInstances", function (workflowId, runningInstances)
 {
@@ -40,12 +41,12 @@ function updateNumberOfInstances(workflowId ,runningInstances)
     $('#' + workflowId).children('li')[1].innerHTML = "Running Instances: " + runningInstances;
 }
 
-function CreateWorkflowRecord(id, name, runingInstances)
+function CreateWorkflowRecord(name, runingInstances)
 {
     var list = $("#workFlows");
-    list.append("<ul id =" + id + " style = 'list-style:none' ></ul>")
-    var newList = $("#" + id)
-    newList.append("<li style = display:inline; ><a href = /monitoring/" + id + ">" + name + "</a></li>")
+    list.append("<ul id =" + name + " style = 'list-style:none' ></ul>")
+    var newList = $("#" + name)
+    newList.append("<li style = display:inline; ><a href = /monitoring/" + name + ">" + name + "</a></li>")
     newList.append("<li style = 'display:inline;margin:10px'; >Running Instances : " + runingInstances + "</li>")
 }
 

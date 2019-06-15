@@ -21,13 +21,13 @@ namespace Monitoring.Hubs
             
             _nodeLangRepository = nodeLangRepository;
         }
-        
+
         /// Deployment
         /*public async Task GetCurrentDeployed()
         {
 
            
-            List<NodeLangWorkflow> nodeLangWorkflows = await _nodeLangRepository.GetAll();
+            List<NodeLangWorkflow> nodeLangWorkflows = await _nodeLangRepository.GetDeployedWorkflowsAsync();
            
 
             if (nodeLangWorkflows != null)
@@ -37,9 +37,13 @@ namespace Monitoring.Hubs
                
             }
         }*/
-        public async Task updateDeployList(string Id, string name, string workflowStr)
+        public async Task InitializeDeployList()
         {
-            await Clients.Others.SendAsync("updateDeployList", Id, name, workflowStr);
+            await Clients.Others.SendAsync("InitializeDeployList");
+        }
+        public async Task updateDeployList(string name, string runningInstances)
+        {
+            await Clients.Others.SendAsync("updateDeployList",  name, runningInstances);
             
         }
 
@@ -51,17 +55,17 @@ namespace Monitoring.Hubs
             await Clients.Group("Engine").SendAsync("GetRunningWorkFlowInstances", WorkflowId, Context.ConnectionId);           
         }
 
-        public async Task InitializeRuningInstances(string WorkflowId, List<string> Instances,string ConnectionId)
+        public async Task InitializeRuningInstances()
         {
          
-            await Clients.Client(ConnectionId).SendAsync("InitializeRuningInstances", WorkflowId, Instances);
+            await Clients.Others.SendAsync("InitializeRuningInstances");
             
 
         }
         
-        public async Task AddRunningInstance(string WorkflowId, string InstanceId, List<string> currentNode)
+        public async Task AddRunningInstance(string WorkflowId, string InstanceId)
         {                
-            await Clients.OthersInGroup(WorkflowId).SendAsync("AddRunningInstance", WorkflowId, InstanceId, currentNode);
+            await Clients.OthersInGroup(WorkflowId).SendAsync("AddRunningInstance", WorkflowId, InstanceId);
           
             await Clients.OthersInGroup("Deployment").SendAsync("updateNumberOfInstances", WorkflowId);         
         }
@@ -69,11 +73,11 @@ namespace Monitoring.Hubs
 
         /// Executing 
 
-        public async Task GetExecutedNodes(string workflowId, string instanceId)
+        /*public async Task GetExecutedNodes(string workflowId, string instanceId)
         {
             await Clients.Group("Engine").SendAsync("GetExecutedNodes", workflowId, instanceId);
 
-        }
+        }*/
         public async Task InitializeExecution(string workflowID, string InstanceId)
         {
             
@@ -82,7 +86,7 @@ namespace Monitoring.Hubs
         }
         public async Task UpdateExecution(string workflowID, string InstanceId, List<string> nodeID)
         {
-            Console.WriteLine(workflowID);
+            
             await Clients.Group(workflowID).SendAsync("UpdateExecution", workflowID, InstanceId, nodeID);
         }
 

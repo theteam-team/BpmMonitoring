@@ -14,7 +14,7 @@ function parse() {
     if (!loaded) {
         var id = $('workflow').attr('id');
         var xml = new XMLHttpRequest();
-        xml.open('Get', "/GetWorkFlow/"+id, true);
+        xml.open('Get', "/GetWorkFlowXml/"+id, true);
         xml.send();
         
         xml.onload = function () {
@@ -37,6 +37,7 @@ function Parse(xmlWorkFlow, currentNode)
 {
    
     var nextNodeID = currentNode.getElementsByTagName("nextNode");
+    var nextNodeID1 = currentNode.getElementsByTagName("nextNode1");
     for (var i = 0; i < nextNodeID.length; ++i)
     {
         var nextNode = xmlWorkFlow.getElementsByTagName("nodes")[0].querySelectorAll("[nId='" + nextNodeID[i].innerHTML + "']")[0];     
@@ -45,6 +46,15 @@ function Parse(xmlWorkFlow, currentNode)
         //console.log(nextNodeID[i].innerHTML + " " + currentNode.tagName);
         if (currentNode.tagName != "end")
             Parse(xmlWorkFlow, nextNode);
+    }
+    for (var i = 0; i < nextNodeID1.length; ++i)
+    {
+        var _nextNode = xmlWorkFlow.getElementsByTagName("nodes")[0].querySelectorAll("[nId='" + nextNodeID1[i].innerHTML + "']")[0];     
+        drawImage(_nextNode, xmlWorkFlow);
+        drawLine(currentNode, _nextNode);
+        //console.log(nextNodeID[i].innerHTML + " " + currentNode.tagName);
+        if (currentNode.tagName != "end")
+            Parse(xmlWorkFlow, _nextNode);
     }
     
 }
@@ -118,9 +128,19 @@ function editImagePosition(currentNodeId)
 }
 function getPosition(xmlDoc , currentNode)
 {
+    var NodePosition;
     var currentNodeId = currentNode.getAttribute("nId");
-    var NodePosition = xmlDoc.getElementsByTagName("positions")[0]
-        .querySelectorAll("[nId='" + currentNodeId + "']")[0];
+    var NodePositions = xmlDoc.getElementsByTagName("positions")[0]
+        .querySelectorAll("position");
+    for (var i = 0; i < NodePositions.length; i++) {
+        var txt = NodePositions[i].getElementsByTagName("nodeId")[0].innerHTML
+        console.log(txt);
+        if (txt == currentNodeId)
+        {
+            NodePosition = NodePositions[i];
+            break;
+        }
+    }
     var x = NodePosition.getElementsByTagName("x")[0].innerHTML;
     var y = NodePosition.getElementsByTagName("y")[0].innerHTML;
     WorkFlowObject.Nodes[currentNodeId].x = x;
