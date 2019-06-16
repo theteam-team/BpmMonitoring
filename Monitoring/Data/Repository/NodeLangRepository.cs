@@ -10,6 +10,7 @@ using Monitoring.Repository;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Json;
 namespace Monitoring.Repository
 {
     public class NodeLangRepository : Repository<NodeLangWorkflow> , INodeLangRepository
@@ -21,8 +22,6 @@ namespace Monitoring.Repository
         public NodeLangRepository(DataDbContext datadbContext) : base(datadbContext)
         {
             _dataDbContext = datadbContext;
-           
-
 
         }
         public async Task<List<NodeLangWorkflow>> GetDeployedWorkflowsAsync()
@@ -31,16 +30,19 @@ namespace Monitoring.Repository
                 try
                 {
                     var response = await _httpClient.GetAsync("http://localhost:8090/engine/api/workflows");
-                    List<NodeLangWorkflow> workflows = new List<NodeLangWorkflow>();
+                    List<NodeLangWorkflow> workflows =  new List<NodeLangWorkflow>();
                     if (response.IsSuccessStatusCode)
                     {
                         var data = await response.Content.ReadAsStringAsync();
+                        //Console.Write(data);
                         workflows = JsonConvert.DeserializeObject<List<NodeLangWorkflow>>(data);
+                        
                     }
                     return workflows;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return null;
                 }
             }
@@ -48,23 +50,29 @@ namespace Monitoring.Repository
             
         }
 
-        public async Task<List<string>> GetRunningInstances(string workflowName)
+        public async Task<List<WorkFlowInstance>> GetRunningInstances(string workflowName)
         {
             using (var _httpClient = new HttpClient())
             {
                 try
                 {
-                    var response = await _httpClient.GetAsync("http://localhost:8090/engine/api/workflows");
-                    List<string> workflowInstances = new List<string>();
+              
+
+                    var response = await _httpClient.GetAsync("http://localhost:8090/engine/api/workflowinstance?name=" + workflowName);
+                    NodeLangWorkflow workflows= new NodeLangWorkflow();
+                    List<WorkFlowInstance> workflowInstances = new List<WorkFlowInstance>();
                     if (response.IsSuccessStatusCode)
                     {
                         var data = await response.Content.ReadAsStringAsync();
-                        workflowInstances = JsonConvert.DeserializeObject<List<string>>(data);
+                        workflows = JsonConvert.DeserializeObject<NodeLangWorkflow>(data);
+                        workflowInstances = workflows.instances;
+                        Console.WriteLine(workflowInstances);
                     }
                     return workflowInstances;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return null;
                 }
             }
@@ -82,7 +90,7 @@ namespace Monitoring.Repository
                     if (response.IsSuccessStatusCode)
                     {
                         workflow = await response.Content.ReadAsStringAsync();
-                        Console.Write(workflow);
+                        //Console.Write(workflow);
 
                     }
                     return workflow;

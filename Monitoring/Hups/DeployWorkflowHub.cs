@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Monitoring.Interfaces;
 using System;
 using Monitoring.Data;
+using Newtonsoft.Json;
 
 namespace Monitoring.Hubs
 {
@@ -44,7 +45,7 @@ namespace Monitoring.Hubs
         public async Task updateDeployList(string name, string runningInstances)
         {
             await Clients.Others.SendAsync("updateDeployList",  name, runningInstances);
-            
+
         }
 
 
@@ -59,6 +60,8 @@ namespace Monitoring.Hubs
         {
          
             await Clients.Others.SendAsync("InitializeRuningInstances");
+            string x = "adsf";
+            
             
 
         }
@@ -86,7 +89,7 @@ namespace Monitoring.Hubs
         }
         public async Task UpdateExecution(string workflowID, string InstanceId, List<string> nodeID)
         {
-            
+            Console.WriteLine("UpdateExecution");
             await Clients.Group(workflowID).SendAsync("UpdateExecution", workflowID, InstanceId, nodeID);
         }
 

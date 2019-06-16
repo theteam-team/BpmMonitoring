@@ -58,8 +58,8 @@ namespace Monitoring.Controllers
             return Ok(new List<NodeLangWorkflow>());
         }
 
-        [HttpGet("GetRunningInstances")]
-        public async Task<ActionResult<List<string>>> GetRunningInstances(string WorkflowName)
+        [HttpGet("GetRunningInstances/{WorkflowName}")]
+        public async Task<ActionResult<List<WorkFlowInstance>>> GetRunningInstances([FromRoute]string WorkflowName)
         {
 
             var workFlow = await _nodeLangRepository.GetRunningInstances(WorkflowName);
@@ -130,9 +130,9 @@ namespace Monitoring.Controllers
                             
                                 await _nodeLangRepository.Create(new NodeLangWorkflow
                                 {
-                                    Id = workFlowId,
+                                    //Id = workFlowId,
                                     Name = WorkFlowName,
-                                    WorkFlow = workFlowStr,
+                                    //WorkFlow = workFlowStr,
                                     RuningInstances = 0
                                 }
                                 );

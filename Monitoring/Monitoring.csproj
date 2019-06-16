@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="OdeToCode.UseNodeModules" Version="1.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="System.Json" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace Monitoring.Data
 {
+    
     public class NodeLangWorkflow
     {
 
-        [JsonIgnore]
-        [Key]
-        public string Id { get; set; }
+       
         public string Name { get; set; }
-        [JsonIgnore]
-        public string WorkFlow { get; set;}
 
-        public long RuningInstances { get; set; }
+        
+        public int RuningInstances { get; set; }
+        [JsonProperty("instances")]
+        public List<WorkFlowInstance> instances { get; set; }
 
         //public List<WorkflowInstance> WorkflowInstances{ get; set; }
        
-       
+      
     }
 }

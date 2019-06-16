@@ -9,8 +9,9 @@ connection.start().then(function ()
     $.getJSON("/GetRunningInstances/" + WorkFlowid,
         function (runingInstances) {
             console.log(runingInstances);
+
             for (var i = 0; i < runingInstances.length; i++) {
-                CreateInstanceRecord(runingInstanceId[i]);
+                CreateInstanceRecord(runingInstances[i].instanceID);
             }
         });
 });
@@ -24,9 +25,11 @@ connection.on("UpdateExecution", function (workflowID, InstanceId, nodeID)
 connection.on("InitializeRuningInstances", function () {
     $.getJSON("/GetRunningInstances/" + WorkFlowid,
         function (runingInstances) {
-            console.log(runingInstances);
-            for (var i = 0; i < runingInstances.length; i++) {
-                CreateInstanceRecord(runingInstanceId[i]);
+            if (runingInstances) {
+                console.log(runingInstances);
+                for (var i = 0; i < runingInstances.length; i++) {
+                    CreateInstanceRecord(runingInstances[i].instanceID);
+                }
             }
         });
     // console.log("InitializeRuningInstances ");
@@ -51,6 +54,7 @@ connection.on("AddRunningInstance", function (WorkflowId, InstanceId) {
 
 function CreateInstanceRecord(runingInstanceId)
 {
+    
     var list = $("#runningInstances");   
     list.append("<li><input type = 'button'  id =" + runingInstanceId + " value=" + runingInstanceId + "></li>")
     $("#" + runingInstanceId).on('click',function () { changeInstance(runingInstanceId); });
@@ -64,7 +68,8 @@ function changeInstance(runingInstanceId)
     connection.invoke("InitializeExecution", WorkFlowid, runingInstanceId);
     
 }
-function UpdateExecution( workflowID,  InstanceId,  nodes)
+
+function UpdateExecution(workflowID,  InstanceId,  nodes)
 {
     console.log(nodeID);
     if (InstanceId == currentInstance) {
