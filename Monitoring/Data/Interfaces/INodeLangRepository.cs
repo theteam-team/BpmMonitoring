@@ -18,5 +18,6 @@ namespace Monitoring.Interfaces
         Task<List<NodeLangWorkflow>> GetDeployedWorkflowsAsync();
         Task<string> GetWorkflowXml(string Id);
         Task<List<WorkFlowInstance>> GetRunningInstances(string workflowName);
+        Task<List<BpmProcess>> GetProcessesInstance(string Id);
     }
 }

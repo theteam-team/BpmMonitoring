@@ -1,6 +1,4 @@
-﻿
-
-let connection = new signalR.HubConnectionBuilder().withUrl("/DeployWorkflowHub").build();
+﻿let connection = new signalR.HubConnectionBuilder().withUrl("/DeployWorkflowHub").build();
 connection.start().then(function ()
 {
     connection.invoke("AddToGroup", "Deployment");
@@ -13,7 +11,8 @@ connection.start().then(function ()
         });
 });
 
-connection.on("updateDeployList", function (id, name, workFlowStr) {
+connection.on("updateDeployList", function (name, runningInstances) {
+    var num = runningInstances.length;
     CreateWorkflowRecord(name, 0)
        
 });
@@ -28,7 +27,6 @@ connection.on("InitializeDeployList", function () {
         });
    
 });
-
 connection.on("updateNumberOfInstances", function (workflowId, runningInstances)
 {
     updateNumberOfInstances(workflowId, runningInstances);
@@ -37,7 +35,6 @@ connection.on("updateNumberOfInstances", function (workflowId, runningInstances)
 
 function updateNumberOfInstances(workflowId ,runningInstances)
 {
-    //console.log("runningInstances: " + runningInstances);
     $('#' + workflowId).children('li')[1].innerHTML = "Running Instances: " + runningInstances;
 }
 

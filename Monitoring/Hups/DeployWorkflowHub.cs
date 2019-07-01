@@ -5,6 +5,7 @@ using Monitoring.Interfaces;
 using System;
 using Monitoring.Data;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Monitoring.Hubs
 {
@@ -12,38 +13,28 @@ namespace Monitoring.Hubs
     public class DeployWorkflowHub : Hub
     {
         private readonly DataDbContext _dataDbContext;
-   
+        private readonly ILogger<DeployWorkflowHub> _logger;
         private readonly INodeLangRepository _nodeLangRepository;
 
 
-        public DeployWorkflowHub(DataDbContext dataDbContext, INodeLangRepository nodeLangRepository)
+        public DeployWorkflowHub(ILogger<DeployWorkflowHub> logger ,DataDbContext dataDbContext, INodeLangRepository nodeLangRepository)
         {
             _dataDbContext = dataDbContext;
-            
+
+            _logger = logger;
             _nodeLangRepository = nodeLangRepository;
         }
 
-        /// Deployment
-        /*public async Task GetCurrentDeployed()
-        {
-
-           
-            List<NodeLangWorkflow> nodeLangWorkflows = await _nodeLangRepository.GetDeployedWorkflowsAsync();
-           
-
-            if (nodeLangWorkflows != null)
-            {
-
-                await Clients.Caller.SendAsync("InitializeDeployList", nodeLangWorkflows);
-               
-            }
-        }*/
+        
+     
         public async Task InitializeDeployList()
         {
+            _logger.LogInformation("InitializeDeployList");
             await Clients.Others.SendAsync("InitializeDeployList");
         }
-        public async Task updateDeployList(string name, string runningInstances)
+        public async Task updateDeployList(string name, List<string> runningInstances)
         {
+            _logger.LogInformation("updateDeployList");
             await Clients.Others.SendAsync("updateDeployList",  name, runningInstances);
 
         }
@@ -58,12 +49,10 @@ namespace Monitoring.Hubs
 
         public async Task InitializeRuningInstances()
         {
-         
-            await Clients.Others.SendAsync("InitializeRuningInstances");
-            string x = "adsf";
-            
-            
 
+            _logger.LogInformation("InitializeRuningInstances");
+            await Clients.Others.SendAsync("InitializeRuningInstances");
+         
         }
         
         public async Task AddRunningInstance(string WorkflowId, string InstanceId)
@@ -74,22 +63,15 @@ namespace Monitoring.Hubs
         }
 
 
-        /// Executing 
-
-        /*public async Task GetExecutedNodes(string workflowId, string instanceId)
-        {
-            await Clients.Group("Engine").SendAsync("GetExecutedNodes", workflowId, instanceId);
-
-        }*/
+     
         public async Task InitializeExecution(string workflowID, string InstanceId)
         {
             
-            Console.WriteLine(workflowID);
             await Clients.Group("Engine").SendAsync("InitializeExecution", workflowID, InstanceId);
         }
         public async Task UpdateExecution(string workflowID, string InstanceId, List<string> nodeID)
         {
-            Console.WriteLine("UpdateExecution");
+            _logger.LogInformation("UpdateExecution");
             await Clients.Group(workflowID).SendAsync("UpdateExecution", workflowID, InstanceId, nodeID);
         }
 
@@ -98,6 +80,8 @@ namespace Monitoring.Hubs
 
         public async Task AddToGroup(string groupName)
         {
+            _logger.LogInformation(groupName);
+            
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
         }

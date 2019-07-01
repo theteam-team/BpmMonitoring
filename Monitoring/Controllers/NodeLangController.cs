@@ -69,6 +69,17 @@ namespace Monitoring.Controllers
             }
             return Ok(new List<string>());
         }
+        [HttpGet("GetProcessesInstance/{instanceId}")]
+        public async Task<ActionResult<List<BpmProcess>>> GetProcessesInstance([FromRoute]string instanceId)
+        {
+
+            var workFlow = await _nodeLangRepository.GetProcessesInstance(instanceId);
+            if (workFlow != null)
+            {
+                return Ok(workFlow);
+            }
+            return Ok(new List<BpmProcess>());
+        }
 
         public NodeLangController(INodeLangRepository nodeLangRepository,  IHubContext<DeployWorkflowHub> hubcontext)
             {

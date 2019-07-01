@@ -91,16 +91,16 @@ namespace Monitoring
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseMvc(cfg =>
             {
 
                 cfg.MapRoute("default", "{controller}/{action}/{id?}", new { controller = "App", action = "index" });
 
             });
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
            
         }

@@ -22,7 +22,6 @@ function parse() {
             var xmlWorkFlow = new DOMParser().parseFromString(xmlData, "text/xml");
             var startNode = xmlWorkFlow.getElementsByTagName("start")[0];
             var currentNode = startNode;
-            //console.log(currentNode.getAttribute('nId') + " " + currentNode.tagName);
 
             drawImage(currentNode, xmlWorkFlow);
 
@@ -152,9 +151,9 @@ function resetdraw()
 {
 
     var nodes = Object.keys(WorkFlowObject.Nodes);
+        console.log("reseting");
     for (var i = 0; i < nodes.length; ++i)
     {
-        console.log("reseting");
         var name = $("#" + nodes[i]).attr('nodeName');
         $("#" + nodes[i]).attr('href', "/img/nodes/" + name + ".png")
     }
