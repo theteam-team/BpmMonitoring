@@ -11,18 +11,21 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Monitoring.Repository
 {
     public class NodeLangRepository : Repository<NodeLangWorkflow> , INodeLangRepository
     {
+        private readonly IConfiguration _config;
         private readonly ILogger<NodeLangRepository> _logger;
         private readonly DataDbContext _dataDbContext;
         //private readonly HttpClient _httpClient;
 
 
-        public NodeLangRepository(ILogger<NodeLangRepository>  logger,DataDbContext datadbContext) : base(datadbContext)
+        public NodeLangRepository(IConfiguration config, ILogger<NodeLangRepository>  logger,DataDbContext datadbContext) : base(datadbContext)
         {
+            _config = config;
             _logger = logger;
             _dataDbContext = datadbContext;
 
@@ -32,7 +35,7 @@ namespace Monitoring.Repository
             using (var _httpClient = new HttpClient()) {
                 try
                 {
-                    var response = await _httpClient.GetAsync("http://102.187.45.214/engine/api/workflows");
+                    var response = await _httpClient.GetAsync(_config["BpmEngine:Address"]+"/engine/api/workflows");
                     List<NodeLangWorkflow> workflows =  new List<NodeLangWorkflow>();
                     if (response.IsSuccessStatusCode)
                     {
@@ -61,7 +64,7 @@ namespace Monitoring.Repository
                 {
               
 
-                    var response = await _httpClient.GetAsync("http://102.187.45.214/engine/api/workflowinstance?name=" + workflowName);
+                    var response = await _httpClient.GetAsync(_config["BpmEngine:Address"] +"/engine/api/workflowinstance?name=" + workflowName);
                     NodeLangWorkflow workflows= new NodeLangWorkflow();
                     List<WorkFlowInstance> workflowInstances = new List<WorkFlowInstance>();
                     if (response.IsSuccessStatusCode)
@@ -87,7 +90,7 @@ namespace Monitoring.Repository
             {
                 try
                 {
-                    var response = await _httpClient.GetAsync("http://102.187.45.214/engine/api/workflowbody?name=" + Id);
+                    var response = await _httpClient.GetAsync(_config["BpmEngine:Address"] + "/engine/api/workflowbody?name=" + Id);
 
                     string workflow = null;
                     if (response.IsSuccessStatusCode)
@@ -111,7 +114,7 @@ namespace Monitoring.Repository
             {
                 try
                 {
-                    var response = await _httpClient.GetAsync("http://102.187.45.214/engine/api/instancenodes?name=" + Id);
+                    var response = await _httpClient.GetAsync(_config["BpmEngine:Address"] +"/engine/api/instancenodes?name=" + Id);
 
                     
                     if (response.IsSuccessStatusCode)
