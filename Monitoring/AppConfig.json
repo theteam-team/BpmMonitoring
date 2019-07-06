@@ -7,7 +7,7 @@
   },
 
   "BpmEngine": {
-    "Address": "http://102.187.124.90:8090"
+    "Address": "http://localhost:8090"
   },
   "Logging": {
     "LogLevel": {

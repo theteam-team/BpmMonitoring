@@ -20,12 +20,17 @@ function parse() {
         xml.onload = function () {
             var xmlData = xml.responseText;
             var xmlWorkFlow = new DOMParser().parseFromString(xmlData, "text/xml");
-            var startNode = xmlWorkFlow.getElementsByTagName("start")[0];
-            var currentNode = startNode;
 
-            drawImage(currentNode, xmlWorkFlow);
+            var startNode = xmlWorkFlow.getElementsByTagName("start");
+            console.log("aaaaaaaaaaaaaa"+startNode.length);
+            for (var i = 0; i < startNode.length; i++) {
 
-            Parse(xmlWorkFlow, currentNode);
+                var currentNode = startNode[i];
+
+                drawImage(currentNode, xmlWorkFlow);
+
+                Parse(xmlWorkFlow, currentNode);
+            }
 
             loaded = true;
 
@@ -133,7 +138,7 @@ function getPosition(xmlDoc , currentNode)
         .querySelectorAll("position");
     for (var i = 0; i < NodePositions.length; i++) {
         var txt = NodePositions[i].getElementsByTagName("nodeId")[0].innerHTML
-        console.log(txt);
+       // console.log(txt);
         if (txt == currentNodeId)
         {
             NodePosition = NodePositions[i];
@@ -151,7 +156,7 @@ function resetdraw()
 {
 
     var nodes = Object.keys(WorkFlowObject.Nodes);
-        console.log("reseting");
+        //console.log("reseting");
     for (var i = 0; i < nodes.length; ++i)
     {
         var name = $("#" + nodes[i]).attr('nodeName');

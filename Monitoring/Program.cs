@@ -21,7 +21,7 @@ namespace Monitoring
          WebHost.CreateDefaultBuilder(args)
              .ConfigureAppConfiguration(setupConfiguration)
              .UseStartup<Startup>()
-             .UseUrls("http://192.168.22.64:5001")
+             //.UseUrls("http://192.168.22.71:5001")
              .Build();
 
 
